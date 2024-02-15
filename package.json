@@ -1,0 +1,11 @@
+{
+  "name": "aws-bedrock-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.513.0",
+    "prettier": "^3.2.5"
+  },
+  "type": "module"
+}
