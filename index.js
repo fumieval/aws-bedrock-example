@@ -1,23 +1,12 @@
-import { BedrockRuntime } from "@aws-sdk/client-bedrock-runtime";
+import AnthropicBedrock from '@anthropic-ai/bedrock-sdk';
 import fs from "fs";
 
-const bedrockRuntime = new BedrockRuntime();
+const client = new AnthropicBedrock({ awsRegion: 'us-east-1' });
 
-const prompt = `Human: ${fs.readFileSync(process.stdin.fd, "utf-8")}
-Assistant:`;
+const response = await client.messages.create({
+  model: "anthropic.claude-3-sonnet-20240229-v1:0",
+  max_tokens: 8000,
+  messages: [{role: "user", content: fs.readFileSync(process.stdin.fd, "utf-8")}],
+});
 
-const request = {
-  modelId: "anthropic.claude-v2:1",
-  contentType: "application/json",
-  accept: "*/*",
-  body: JSON.stringify({
-    prompt: prompt,
-    max_tokens_to_sample: 4000,
-    stop_sequences: ["Human:"],
-    anthropic_version: "bedrock-2023-05-31",
-  }),
-};
-
-const response = await bedrockRuntime.invokeModel(request);
-const body = JSON.parse(Buffer.from(response.body).toString("utf-8"));
-console.log(body.completion);
+console.log(response.content[0].text);
