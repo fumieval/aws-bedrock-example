@@ -1,5 +1,4 @@
 import AnthropicBedrock from '@anthropic-ai/bedrock-sdk';
-import Anthropic from '@anthropic-ai/sdk';
 import { Tool } from '@anthropic-ai/sdk/resources/messages.mjs';
 import fs from "fs";
 import { z } from "zod";
@@ -33,7 +32,7 @@ function zodToInputSchema<T>(
 const content = fs.readFileSync(process.stdin.fd, "utf-8");
 
 const response = await client.messages.create({
-  model: "anthropic.claude-3-sonnet-20240229-v1:0",
+  model: "anthropic.claude-3-5-sonnet-20240620-v1:0",
   max_tokens: 8000,
   tool_choice: {
     type: "tool",
