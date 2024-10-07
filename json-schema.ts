@@ -33,6 +33,7 @@ const content = fs.readFileSync(process.stdin.fd, "utf-8");
 
 const response = await client.messages.create({
   model: "anthropic.claude-3-5-sonnet-20240620-v1:0",
+  temperature: 0.1,
   max_tokens: 8000,
   tool_choice: {
     type: "tool",
